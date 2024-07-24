@@ -3,35 +3,47 @@ Questions for Lesson 6
 1. When you enable CRUD operations on a table in the database, you need to add four things
 to your Rails application.  When you generate a scaffold, all four are created.What are they?
 
-
-
+These are the model, controller, views, and routes.
 
 2. When you specify a route in config/routes.rb, you need to include certain information.  What
 must be included? In addition, you may specify an additional parameter to create a variable
 that describes the route.  How do you do that? What variable is created?
 
+You must include the HTTP verb, URL, and controller. To include a param, you would
+include a colon and variable in the desired position in the defined URL.
 
+patch '/users/:id'
 
 3. What does the Rails db:migrate command do?
 
-
+Migrations are a way to modify the db schema, and so using db:migrate applies changes to the db.
 
 4. What file do you look at to see the current database schema?
 
+db/schema.rb
 
 5. What command shows the routes?
 
+bin/rails routes
 
 6. How can you start the Rails console? How can you do CRUD operations from the console?
 
+You start the console with bin/rails console. You can do CRUD operations by using the Active Record
+Model classes.
 
 7. What statements are in erb files that make them different from html files?  What are the
 two kinds of special statements, and how are they marked in the erb file? Where are they executed?
+
+These files have embedded Ruby code. There is the <%= %>, which evaluates Ruby code and outputs the result.
+There is <% %> which executes Ruby code but does not output the result. They are executed on the server.
 
 
 8. Consider this statement: @forum = Forum.new().  Why is Forum capitalized?  Why is @forum not
 capitalized? Why is the @ used?
 
+Forum is capitalized because it is the class name. @forum is not capitalized because it is an instance
+variable. The @ tells us that the variable is an instance variable that
+can be used within the class it is defined in.
 
 
 9. Consider these statements:
@@ -42,6 +54,10 @@ capitalized? Why is the @ used?
 
 What is the difference between Forum.new() and Forum.create()?  Why can't you do Forum.save(...)?
 
+Forum.new() creates a new instance of the Forum class but does not save it to the database.
+Form.create creates a new instance of the Forum class, and saves it to the db.
+@forum.save saves the current instance of the class to the database. If the instance is new,
+it performs an insert, but if it exists, it performs an update operation.
 
 10. In the forums controller, you have a method called show:
 
@@ -57,5 +73,8 @@ hash has a value, params[:id].  What is the value for this element of the hash? 
 did it get there?
 
 
-
+The default behavior of the show method is to render the show view related to the controller
+and display the forum details. It knows what forum to show because the instance variable @forum is set.
+The params hash value is whatever is set in the route for the :id param. :id is extracted from the URL and
+placed in params[:id].
 
