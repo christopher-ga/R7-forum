@@ -1,4 +1,4 @@
-Questions for Lesson 6
+Que stions for Lesson 6
 
 1. When you enable CRUD operations on a table in the database, you need to add four things
 to your Rails application.  When you generate a scaffold, all four are created.What are they?
