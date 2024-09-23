@@ -1,11 +1,4 @@
 Rails.application.routes.draw do
-  # resources :subscriptions
-  get 'posts/create'
-  get 'posts/new'
-  get 'posts/edit'
-  get 'posts/show'
-  get 'posts/update'
-  get 'posts/destroy'
   # resources :users
    root 'forums#index'
   get '/users', to: 'users#index', as: 'users'
