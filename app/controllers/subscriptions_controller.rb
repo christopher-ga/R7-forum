@@ -4,7 +4,7 @@ class SubscriptionsController < ApplicationController
   before_action :set_forum, only: %w[new create]
   # GET /subscriptions or /subscriptions.json
   def index
-    @forums = Forum.joins(:subscriptions).where(subscriptions: {user_id: @user.id}).order(:priority)
+    @forums = Forum.joins(:subscriptions).where(subscriptions: { user_id: @current_user.id }).order(:priority)
   end
 
   # GET /subscriptions/1 or /subscriptions/1.json
@@ -13,12 +13,12 @@ class SubscriptionsController < ApplicationController
 
   # GET /subscriptions/new
   def new
-    if @forum.subscriptions.where(user_id: @user.id).any?
+    if @forum.subscriptions.where(user_id: @current_user.id).any?
       redirect_to forums_path, notice: "You are already subscribed to that forum."
     end
 
-    @subscription = @user.subscriptions.new # change
-    @subscription.forum_id = @forum.id      # change
+    @subscription = @current_user.subscriptions.new
+    @subscription.forum_id = @forum.id
   end
 
   # GET /subscriptions/1/edit
@@ -27,7 +27,8 @@ class SubscriptionsController < ApplicationController
 
   # POST /subscriptions or /subscriptions.json
   def create
-    @subscription = @user.subscriptions.new(subscription_params) # change
+    @subscription = @current_user.subscriptions.new(subscription_params)
+    @subscription.forum_id = @forum.id
 
     respond_to do |format|
       if @subscription.save
